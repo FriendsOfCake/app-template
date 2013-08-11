@@ -1,0 +1,37 @@
+{
+  "name": "ad7six/cakephp-app",
+  "description": "An empty CakePHP 2.4 application",
+  "type": "project",
+  "keywords" : [],
+  "homepage" : "http://cakephp.org",
+  "license" : "MIT",
+  "require" : {
+    "php" : ">=5.4",
+    "composer/installers" : "~1.0",
+    "cakephp/cakephp" : "2.4",
+    "cakephp/debug_kit" : "2.2.*"
+  },
+  "minimum-stability": "dev",
+  "repositories" : [
+    {
+      "type": "package",
+      "package": {
+        "name" : "cakephp/cakephp",
+        "version" : "2.4",
+        "dist" : {
+          "type" : "zip",
+          "url" : "https://github.com/cakephp/cakephp/archive/2.4.0-beta.zip"
+        },
+        "source" : {
+          "type" : "git",
+          "url" : "git://github.com/cakephp/cakephp.git",
+          "reference" : "2.4"
+        }
+      }
+    }
+  ],
+  "config": {
+      "preferred-install": "source",
+      "vendor-dir": "vendors"
+  }
+}
