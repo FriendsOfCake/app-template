@@ -31,7 +31,6 @@
     }
   ],
   "config": {
-      "preferred-install": "source",
-      "vendor-dir": "vendors"
+      "preferred-install": "source"
   }
 }
