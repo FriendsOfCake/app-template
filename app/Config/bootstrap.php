@@ -80,8 +80,22 @@ Cache::config('default', ['engine' => 'File']);
  *
  */
 CakePlugin::load('Crud');
-if (Configure::read('debug')) {
+
+if (php_sapi_name() !== 'cli' && Configure::read('debug')) {
 	CakePlugin::load('DebugKit');
+	App::uses('CakeEventManager', 'Event');
+	CakeEventManager::instance()->attach(function($event) {
+		$controller = $event->subject();
+		$controller->Toolbar = $controller->Components->load(
+			'DebugKit.Toolbar',
+			[
+				'panels' => [
+					'Crud.Crud'
+				]
+			]
+		);
+		$controller->Crud->addListener('DebugKit', 'Crud.DebugKit');
+	}, 'Controller.initialize');
 }
 
 /**
