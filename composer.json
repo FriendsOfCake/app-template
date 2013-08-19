@@ -9,7 +9,8 @@
     "php" : ">=5.4",
     "composer/installers" : "~1.0",
     "cakephp/cakephp" : "2.4",
-    "cakephp/debug_kit" : "2.2.*"
+    "cakephp/debug_kit" : "2.2.*",
+    "jippi/cakephp-crud" : "dev-develop"
   },
   "minimum-stability": "dev",
   "repositories" : [
