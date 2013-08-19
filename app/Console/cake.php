@@ -22,7 +22,7 @@ $ds = DIRECTORY_SEPARATOR;
 $dispatcher = 'Cake' . $ds . 'Console' . $ds . 'ShellDispatcher.php';
 
 if (function_exists('ini_set')) {
-	$root = dirname(dirname(dirname(__FILE__))) . $ds . 'vendors' . $ds . 'cakephp' . $ds . 'cakephp';
+	$root = dirname(dirname(dirname(__FILE__))) . $ds . 'vendor' . $ds . 'cakephp' . $ds . 'cakephp';
 
 	// the following line differs from its sibling
 	// /lib/Cake/Console/Templates/skel/Console/cake.php

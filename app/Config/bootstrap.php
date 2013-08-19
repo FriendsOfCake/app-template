@@ -27,7 +27,7 @@
 App::build(
 	[
 		'Plugin' => [ROOT . '/Plugin/', ROOT . '/App/Plugin'],
-		'Vendor' => [ROOT . '/vendors/', ROOT . '/App/Vendor']
+		'Vendor' => [ROOT . '/vendor/', ROOT . '/App/Vendor']
 	],
 	App::RESET
 );
