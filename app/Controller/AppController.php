@@ -21,6 +21,7 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 App::uses('Controller', 'Controller');
+App::uses('CrudControllerTrait', 'Crud.Lib');
 
 /**
  * Application Controller
@@ -32,4 +33,25 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
+
+	use CrudControllerTrait;
+
+/**
+ * List of global controller components
+ *
+ * @var array
+ */
+	public $components = [
+		'RequestHandler',
+		'Session',
+		'Crud.Crud' => [
+			'listeners' => [
+				'Crud.Api',
+				'Crud.ApiPagination',
+				'Crud.ApiQueryLog'
+			]
+		],
+		'Paginator' => ['settings' => ['paramType' => 'querystring', 'limit' => 30]]
+	];
+
 }
