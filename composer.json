@@ -12,7 +12,7 @@
     "jippi/cakephp-crud" : "3.*"
   },
   "require-dev": {
-    "cakephp/debug_kit" : "2.2.*",
+    "cakephp/debug_kit" : "2.2.*"
   },
   "minimum-stability": "dev",
   "repositories" : [
