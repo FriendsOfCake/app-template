@@ -9,8 +9,10 @@
     "php" : ">=5.4",
     "composer/installers" : "~1.0",
     "cakephp/cakephp" : "2.4",
-    "cakephp/debug_kit" : "2.2.*",
     "jippi/cakephp-crud" : "dev-develop"
+  },
+  "require-dev": {
+    "cakephp/debug_kit" : "2.2.*",
   },
   "minimum-stability": "dev",
   "repositories" : [
