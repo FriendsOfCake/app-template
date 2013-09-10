@@ -9,7 +9,7 @@
     "php" : ">=5.4",
     "composer/installers" : "~1.0",
     "cakephp/cakephp" : "2.4.0",
-    "jippi/cakephp-crud" : "3.*"
+    "friendsofcake/crud" : "3.*"
   },
   "require-dev": {
     "cakephp/debug_kit" : "2.2.*"
