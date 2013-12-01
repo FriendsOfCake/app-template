@@ -8,7 +8,7 @@
   "require" : {
     "php" : ">=5.4",
     "composer/installers" : "~1.0",
-    "cakephp/cakephp" : "2.4.2",
+    "cakephp/cakephp" : "2.4.3",
     "friendsofcake/crud" : "3.*"
   },
   "require-dev": {
@@ -20,15 +20,15 @@
       "type": "package",
       "package": {
         "name" : "cakephp/cakephp",
-        "version" : "2.4.2",
+        "version" : "2.4.3",
         "dist" : {
           "type" : "zip",
-          "url" : "https://github.com/cakephp/cakephp/archive/2.4.2.zip"
+          "url" : "https://github.com/cakephp/cakephp/archive/2.4.3.zip"
         },
         "source" : {
           "type" : "git",
           "url" : "git://github.com/cakephp/cakephp.git",
-          "reference" : "2.4.2"
+          "reference" : "2.4.3"
         }
       }
     }
