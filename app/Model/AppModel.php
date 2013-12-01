@@ -32,4 +32,19 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
+	
+/**
+ * recursive 
+ *
+ * @var int
+ */
+	public $recursive = -1;
+	
+/**
+ * behaviors used by model
+ *
+ * @var array
+ */
+	public $actsAs = ['Containable'];
+	
 }
