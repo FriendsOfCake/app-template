@@ -32,6 +32,8 @@ App::build(
 	App::RESET
 );
 
+App::import('Vendor', array('file' => 'autoload'));
+
 // Setup a 'default' cache configuration for use in the application.
 Cache::config('default', ['engine' => 'File']);
 
