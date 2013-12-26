@@ -76,4 +76,27 @@ class DATABASE_CONFIG {
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);
+
+	public function __construct() {
+		$parsed_urls = array(
+			'default' => parseUrlFromEnv('DATABASE_URL'),
+			'test' => parseUrlFromEnv('TEST_DATABASE_URL'),
+		);
+
+		foreach ($parsed_urls as $connection => $parsed) {
+			if ($parsed) {
+				$this->$connection = array(
+					'datasource' => 'Database/' . ucfirst(strtolower($parsed['scheme'])),
+					'persistent' => false,
+					'host'       => Hash::get($parsed, 'host'),
+					'login'      => Hash::get($parsed, 'user'),
+					'password'   => Hash::get($parsed, 'pass'),
+					'database'   => substr($parsed['path'], 1),
+					'prefix'     => '',
+					'encoding'   => 'utf8',
+				);
+			}
+		}
+	}
+
 }

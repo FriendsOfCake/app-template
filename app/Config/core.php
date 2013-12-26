@@ -20,6 +20,38 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
+// Include the Composer autoloader
+// This does not use `App::import()` because `App::build()`
+// is called *after* `core.php` has been loaded
+include (ROOT . DS . 'vendor' . DS . 'autoload.php');
+
+// Remove and re-prepend CakePHP's autoloader as composer thinks it is the most important.
+// See https://github.com/composer/composer/commit/c80cb76b9b5082ecc3e5b53b1050f76bb27b127b
+spl_autoload_unregister(array('App', 'load'));
+spl_autoload_register(array('App', 'load'), true, true);
+
+// Specify the APP_NAME environment variable to skip .env file loading
+if (!env('APP_NAME')) {
+	try {
+		josegonzalez\Dotenv\Loader::load(array(
+			'filepath' => __DIR__ . DIRECTORY_SEPARATOR . '.env',
+			'toServer' => false,
+			'skipExisting' => array('toServer'),
+			'raiseExceptions' => false
+		));
+	} catch (InvalidArgumentException $e) {
+		// Ignore errors loading the file from disk
+	}
+}
+
+// Helper function to parse urls from environment variables
+function parseUrlFromEnv($key, $default = null) {
+	if (($value = env($key)) !== null) {
+		return parse_url($value);
+	}
+	return false;
+}
+
 /**
  * CakePHP Debug Level:
  *
@@ -33,7 +65,7 @@
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', 2);
+	Configure::write('debug', env('DEBUG') ?: 2);
 
 /**
  * Configure the Error handler used to handle errors for your application. By default
@@ -194,12 +226,12 @@
 /**
  * A random string used in security hashing methods.
  */
-	Configure::write('Security.salt', 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');
+	Configure::write('Security.salt', env('SECURITY_SALT') ?: 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');
 
 /**
  * A random numeric string (digits only) used to encrypt/decrypt strings.
  */
-	Configure::write('Security.cipherSeed', '76859309657453542496749683645');
+	Configure::write('Security.cipherSeed', env('SECURITY_CIPHER_SEED') ?: '76859309657453542496749683645');
 
 /**
  * Apply timestamps with the last modified time to static assets (js, css, images).
@@ -321,28 +353,40 @@ if (Configure::read('debug') > 0) {
 }
 
 // Prefix each application on the same server with a different string, to avoid Memcache and APC conflicts.
-$prefix = 'myapp_';
+$prefix = env('CACHE_PREFIX') :? 'myapp_';
 
 /**
  * Configure the cache used for general framework caching. Path information,
  * object listings, and translation cache files are stored with this configuration.
  */
+$_CACHE_URL = parseUrlFromEnv('CAKE_CORE_CACHE_URL', env('CACHE_URL') ?: 'file:');
 Cache::config('_cake_core_', [
-	'engine' => $engine,
+	'engine' => ucfirst(Hash::get($_CACHE_URL, 'scheme')),
 	'prefix' => $prefix . 'cake_core_',
 	'path' => CACHE . 'persistent' . DS,
 	'serialize' => ($engine === 'File'),
-	'duration' => $duration
+	'duration' => $duration,
+	'login' => Hash::get($_CACHE_URL, 'user'),
+	'password' => Hash::get($_CACHE_URL, 'pass'),
+	'server' => Hash::get($_CACHE_URL, 'host'),
+	'servers' => Hash::get($_CACHE_URL, 'host'),
+	'port' => Hash::get($_CACHE_URL, 'port'),
 ]);
 
 /**
  * Configure the cache for model and datasource caches. This cache configuration
  * is used to store schema descriptions, and table listings in connections.
  */
+$_CACHE_URL = parseUrlFromEnv('CAKE_MODEL_CACHE_URL', env('CACHE_URL') :? 'file:');
 Cache::config('_cake_model_', [
-	'engine' => $engine,
+	'engine' => ucfirst(Hash::get($_CACHE_URL, 'scheme')),
 	'prefix' => $prefix . 'cake_model_',
 	'path' => CACHE . 'models' . DS,
 	'serialize' => ($engine === 'File'),
 	'duration' => $duration
+	'login' => Hash::get($_CACHE_URL, 'user'),
+	'password' => Hash::get($_CACHE_URL, 'pass'),
+	'server' => Hash::get($_CACHE_URL, 'host'),
+	'servers' => Hash::get($_CACHE_URL, 'host'),
+	'port' => Hash::get($_CACHE_URL, 'port'),
 ]);

@@ -20,6 +20,21 @@ By default, the following has been enabled:
 
 You may change either of these at your leisure.
 
+## Application Configuration
+
+This template supports - but does not require - configuration of the application via [environment variables](http://en.wikipedia.org/wiki/Environment_variable). This is not required for application configuration - and can be ignored - but is useful on Cloud Platforms and for those requiring extra security around sharing of application secrets and tokens.
+
+To reduce complexity around using the use of this methodology locally, we have also included the [josegonzalez/php-dotenv](https://github.com/josegonzalez/php-dotenv) library to load environment variables within your `app/Config/core.php`. You can create a `app/Config/.env` file with your configuration and have it autoloaded by the `php-dotenv` project. A sample `app/Config/.env.default` has been included for your convenience.
+
+## Heroku Compatibility
+
+This application template is compatible with the [CHH/heroku-buildpack-php](https://github.com/CHH/heroku-buildpack-php) project. To use, simply configure your buildpack:
+
+    heroku config:set BUILDPACK_URL=https://github.com/CHH/heroku-buildpack-php
+    heroku config:set LOG_PATH=/app/vendor/php/var/log/
+    heroku config:set SECURITY_SALT=SOME_ALPHANUMERIC_SALT_HERE
+    heroku config:set SECURITY_CIPHER_SEED=SOME_NUMERIC_SEED_HERE
+
 ## Note about dependencies
 
 FriendsOfCake encourages the use of composer and it's best not to mix composer with git submodules for
