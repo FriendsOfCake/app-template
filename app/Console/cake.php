@@ -22,11 +22,11 @@ $ds = DIRECTORY_SEPARATOR;
 $dispatcher = 'Cake' . $ds . 'Console' . $ds . 'ShellDispatcher.php';
 
 if (function_exists('ini_set')) {
-	$root = dirname(dirname(dirname(__FILE__))) . $ds . 'vendor' . $ds . 'cakephp' . $ds . 'cakephp';
+	$root = dirname(dirname(dirname(__FILE__))) . $ds . 'vendor' . $ds . 'pear-pear.cakephp.org';
 
 	// the following line differs from its sibling
 	// /lib/Cake/Console/Templates/skel/Console/cake.php
-	ini_set('include_path', $root . $ds . 'lib' . PATH_SEPARATOR . ini_get('include_path'));
+	ini_set('include_path', $root . $ds . 'CakePHP' . PATH_SEPARATOR . ini_get('include_path'));
 }
 
 if (!include $dispatcher) {
