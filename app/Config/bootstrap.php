@@ -88,6 +88,11 @@ if (php_sapi_name() !== 'cli' && Configure::read('debug') && in_array('DebugKit'
 	App::uses('CakeEventManager', 'Event');
 	CakeEventManager::instance()->attach(function($event) {
 		$controller = $event->subject();
+
+		if (!isset($controller->Crud)) {
+			return;
+		}
+
 		$controller->Toolbar = $controller->Components->load(
 			'DebugKit.Toolbar',
 			[
