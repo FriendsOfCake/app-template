@@ -360,33 +360,37 @@ $prefix = env('CACHE_PREFIX') ?: 'myapp_';
  * object listings, and translation cache files are stored with this configuration.
  */
 $_CACHE_URL = parseUrlFromEnv('CAKE_CORE_CACHE_URL', env('CACHE_URL') ?: 'file:');
-Cache::config('_cake_core_', [
-	'engine' => ucfirst(Hash::get($_CACHE_URL, 'scheme')),
-	'prefix' => $prefix . 'cake_core_',
-	'path' => CACHE . 'persistent' . DS,
-	'serialize' => ($engine === 'File'),
-	'duration' => $duration,
-	'login' => Hash::get($_CACHE_URL, 'user'),
-	'password' => Hash::get($_CACHE_URL, 'pass'),
-	'server' => Hash::get($_CACHE_URL, 'host'),
-	'servers' => Hash::get($_CACHE_URL, 'host'),
-	'port' => Hash::get($_CACHE_URL, 'port'),
-]);
+if ($_CACHE_URL) {
+	Cache::config('_cake_core_', [
+		'engine' => ucfirst(Hash::get($_CACHE_URL, 'scheme')),
+		'prefix' => $prefix . 'cake_core_',
+		'path' => CACHE . 'persistent' . DS,
+		'serialize' => ($engine === 'File'),
+		'duration' => $duration,
+		'login' => Hash::get($_CACHE_URL, 'user'),
+		'password' => Hash::get($_CACHE_URL, 'pass'),
+		'server' => Hash::get($_CACHE_URL, 'host'),
+		'servers' => Hash::get($_CACHE_URL, 'host'),
+		'port' => Hash::get($_CACHE_URL, 'port'),
+	]);
+}
 
 /**
  * Configure the cache for model and datasource caches. This cache configuration
  * is used to store schema descriptions, and table listings in connections.
  */
 $_CACHE_URL = parseUrlFromEnv('CAKE_MODEL_CACHE_URL', env('CACHE_URL') ?: 'file:');
-Cache::config('_cake_model_', [
-	'engine' => ucfirst(Hash::get($_CACHE_URL, 'scheme')),
-	'prefix' => $prefix . 'cake_model_',
-	'path' => CACHE . 'models' . DS,
-	'serialize' => ($engine === 'File'),
-	'duration' => $duration,
-	'login' => Hash::get($_CACHE_URL, 'user'),
-	'password' => Hash::get($_CACHE_URL, 'pass'),
-	'server' => Hash::get($_CACHE_URL, 'host'),
-	'servers' => Hash::get($_CACHE_URL, 'host'),
-	'port' => Hash::get($_CACHE_URL, 'port'),
-]);
+if ($_CACHE_URL) {
+	Cache::config('_cake_model_', [
+		'engine' => ucfirst(Hash::get($_CACHE_URL, 'scheme')),
+		'prefix' => $prefix . 'cake_model_',
+		'path' => CACHE . 'models' . DS,
+		'serialize' => ($engine === 'File'),
+		'duration' => $duration,
+		'login' => Hash::get($_CACHE_URL, 'user'),
+		'password' => Hash::get($_CACHE_URL, 'pass'),
+		'server' => Hash::get($_CACHE_URL, 'host'),
+		'servers' => Hash::get($_CACHE_URL, 'host'),
+		'port' => Hash::get($_CACHE_URL, 'port'),
+	]);
+}
