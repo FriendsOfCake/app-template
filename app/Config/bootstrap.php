@@ -142,12 +142,12 @@ App::uses('CakeLog', 'Log');
 CakeLog::config('debug', [
 	'engine' => 'FileLog',
 	'types' => ['notice', 'info', 'debug'],
-	'path' =>  env('LOG_PATH') :? LOGS,
+	'path' =>  env('LOG_PATH') ?: LOGS,
 	'file' => 'debug',
 ]);
 CakeLog::config('error', [
 	'engine' => 'FileLog',
 	'types' => ['warning', 'error', 'critical', 'alert', 'emergency'],
-	'path' =>  env('LOG_PATH') :? LOGS,
+	'path' =>  env('LOG_PATH') ?: LOGS,
 	'file' => 'error',
 ]);
