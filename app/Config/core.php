@@ -34,7 +34,7 @@ spl_autoload_register(array('App', 'load'), true, true);
 if (!env('APP_NAME')) {
 	try {
 		josegonzalez\Dotenv\Loader::load(array(
-			'filepath' => __DIR__ . DIRECTORY_SEPARATOR . '.env',
+			'filepath' => __DIR__ . DS . '.env',
 			'toServer' => false,
 			'skipExisting' => array('toServer'),
 			'raiseExceptions' => false
