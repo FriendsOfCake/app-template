@@ -353,7 +353,7 @@ if (Configure::read('debug') > 0) {
 }
 
 // Prefix each application on the same server with a different string, to avoid Memcache and APC conflicts.
-$prefix = env('CACHE_PREFIX') :? 'myapp_';
+$prefix = env('CACHE_PREFIX') ?: 'myapp_';
 
 /**
  * Configure the cache used for general framework caching. Path information,
@@ -377,13 +377,13 @@ Cache::config('_cake_core_', [
  * Configure the cache for model and datasource caches. This cache configuration
  * is used to store schema descriptions, and table listings in connections.
  */
-$_CACHE_URL = parseUrlFromEnv('CAKE_MODEL_CACHE_URL', env('CACHE_URL') :? 'file:');
+$_CACHE_URL = parseUrlFromEnv('CAKE_MODEL_CACHE_URL', env('CACHE_URL') ?: 'file:');
 Cache::config('_cake_model_', [
 	'engine' => ucfirst(Hash::get($_CACHE_URL, 'scheme')),
 	'prefix' => $prefix . 'cake_model_',
 	'path' => CACHE . 'models' . DS,
 	'serialize' => ($engine === 'File'),
-	'duration' => $duration
+	'duration' => $duration,
 	'login' => Hash::get($_CACHE_URL, 'user'),
 	'password' => Hash::get($_CACHE_URL, 'pass'),
 	'server' => Hash::get($_CACHE_URL, 'host'),
