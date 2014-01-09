@@ -1,4 +1,8 @@
 <?php
+
+use AD7six\Dsn\Wrapper\CakePHP\CacheDsn;
+use AD7six\Dsn\Wrapper\CakePHP\LogDsn;
+
 /**
  * This is core configuration file.
  *
@@ -27,29 +31,29 @@ include (ROOT . DS . 'vendor' . DS . 'autoload.php');
 
 // Remove and re-prepend CakePHP's autoloader as composer thinks it is the most important.
 // See https://github.com/composer/composer/commit/c80cb76b9b5082ecc3e5b53b1050f76bb27b127b
-spl_autoload_unregister(array('App', 'load'));
-spl_autoload_register(array('App', 'load'), true, true);
+spl_autoload_unregister(['App', 'load']);
+spl_autoload_register(['App', 'load'], true, true);
 
 // Specify the APP_NAME environment variable to skip .env file loading
 if (!env('APP_NAME')) {
 	try {
-		josegonzalez\Dotenv\Loader::load(array(
+		josegonzalez\Dotenv\Loader::load([
 			'filepath' => __DIR__ . DS . '.env',
 			'toServer' => false,
-			'skipExisting' => array('toServer'),
+			'skipExisting' => ['toServer'],
 			'raiseExceptions' => false
-		));
+		]);
 	} catch (InvalidArgumentException $e) {
-		// Ignore errors loading the file from disk
+		// If there's a problem loading the .env file - load .env.default
+		// That means the code can assume appropriate env config always exists
+		// Don't trap this incase there's some other fundamental error
+		josegonzalez\Dotenv\Loader::load([
+			'filepath' => __DIR__ . DS . '.env.default',
+			'toServer' => false,
+			'skipExisting' => ['toServer'],
+			'raiseExceptions' => false
+		]);
 	}
-}
-
-// Helper function to parse urls from environment variables
-function parseUrlFromEnv($key, $default = null) {
-	if (($value = env($key)) !== null) {
-		return parse_url($value);
-	}
-	return false;
 }
 
 /**
@@ -65,7 +69,7 @@ function parseUrlFromEnv($key, $default = null) {
  * In production mode, flash messages redirect after a time interval.
  * In development mode, you need to click the flash message to continue.
  */
-	Configure::write('debug', env('DEBUG') ?: 2);
+	Configure::write('debug', (int)env('DEBUG'));
 
 /**
  * Configure the Error handler used to handle errors for your application. By default
@@ -226,12 +230,12 @@ function parseUrlFromEnv($key, $default = null) {
 /**
  * A random string used in security hashing methods.
  */
-	Configure::write('Security.salt', env('SECURITY_SALT') ?: 'DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi');
+	Configure::write('Security.salt', env('SECURITY_SALT'));
 
 /**
  * A random numeric string (digits only) used to encrypt/decrypt strings.
  */
-	Configure::write('Security.cipherSeed', env('SECURITY_CIPHER_SEED') ?: '76859309657453542496749683645');
+	Configure::write('Security.cipherSeed', env('SECURITY_CIPHER_SEED'));
 
 /**
  * Apply timestamps with the last modified time to static assets (js, css, images).
@@ -274,123 +278,14 @@ function parseUrlFromEnv($key, $default = null) {
 	date_default_timezone_set('UTC');
 
 /**
- *
- * Cache Engine Configuration
- * Default settings provided below
- *
- * File storage engine.
- *
- * 	 Cache::config('default', array(
- *		'engine' => 'File', //[required]
- *		'duration' => 3600, //[optional]
- *		'probability' => 100, //[optional]
- * 		'path' => CACHE, //[optional] use system tmp directory - remember to use absolute path
- * 		'prefix' => 'cake_', //[optional]  prefix every cache file with this string
- * 		'lock' => false, //[optional]  use file locking
- * 		'serialize' => true, [optional]
- *	));
- *
- * APC (http://pecl.php.net/package/APC)
- *
- * 	 Cache::config('default', array(
- *		'engine' => 'Apc', //[required]
- *		'duration' => 3600, //[optional]
- *		'probability' => 100, //[optional]
- * 		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional]  prefix every cache file with this string
- *	));
- *
- * Xcache (http://xcache.lighttpd.net/)
- *
- * 	 Cache::config('default', array(
- *		'engine' => 'Xcache', //[required]
- *		'duration' => 3600, //[optional]
- *		'probability' => 100, //[optional]
- *		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional] prefix every cache file with this string
- *		'user' => 'user', //user from xcache.admin.user settings
- *		'password' => 'password', //plaintext password (xcache.admin.pass)
- *	));
- *
- * Memcache (http://www.danga.com/memcached/)
- *
- * 	 Cache::config('default', array(
- *		'engine' => 'Memcache', //[required]
- *		'duration' => 3600, //[optional]
- *		'probability' => 100, //[optional]
- * 		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional]  prefix every cache file with this string
- * 		'servers' => array(
- * 			'127.0.0.1:11211' // localhost, default port 11211
- * 		), //[optional]
- * 		'persistent' => true, // [optional] set this to false for non-persistent connections
- * 		'compress' => false, // [optional] compress data in Memcache (slower, but uses less memory)
- *	));
- *
- *  Wincache (http://php.net/wincache)
- *
- * 	 Cache::config('default', array(
- *		'engine' => 'Wincache', //[required]
- *		'duration' => 3600, //[optional]
- *		'probability' => 100, //[optional]
- *		'prefix' => Inflector::slug(APP_DIR) . '_', //[optional]  prefix every cache file with this string
- *	));
+ * Configure Cache from environment variables
  */
+	Cache::config('default', CacheDsn::parse(env('CACHE_URL')));
+	Cache::config('_cake_core_', CacheDsn::parse(env('CACHE_CAKE_CORE_URL')));
+	Cache::config('_cake_model_', CacheDsn::parse(env('CACHE_CAKE_MODEL_URL')));
 
 /**
- * Configure the cache handlers that CakePHP will use for internal
- * metadata like class maps, and model schema.
- *
- * By default File is used, but for improved performance you should use APC.
- *
- * Note: 'default' and other application caches should be configured in app/Config/bootstrap.php.
- *       Please check the comments in bootstrap.php for more info on the cache engines available
- *       and their settings.
+ * Configure logs from environment variables
  */
-$engine = 'File';
-
-// In development mode, caches should expire quickly.
-$duration = '+999 days';
-if (Configure::read('debug') > 0) {
-	$duration = '+10 seconds';
-}
-
-// Prefix each application on the same server with a different string, to avoid Memcache and APC conflicts.
-$prefix = env('CACHE_PREFIX') ?: 'myapp_';
-
-/**
- * Configure the cache used for general framework caching. Path information,
- * object listings, and translation cache files are stored with this configuration.
- */
-$_CACHE_URL = parseUrlFromEnv('CAKE_CORE_CACHE_URL', env('CACHE_URL') ?: 'file:');
-if ($_CACHE_URL) {
-	Cache::config('_cake_core_', [
-		'engine' => ucfirst(Hash::get($_CACHE_URL, 'scheme')),
-		'prefix' => $prefix . 'cake_core_',
-		'path' => CACHE . 'persistent' . DS,
-		'serialize' => ($engine === 'File'),
-		'duration' => $duration,
-		'login' => Hash::get($_CACHE_URL, 'user'),
-		'password' => Hash::get($_CACHE_URL, 'pass'),
-		'server' => Hash::get($_CACHE_URL, 'host'),
-		'servers' => Hash::get($_CACHE_URL, 'host'),
-		'port' => Hash::get($_CACHE_URL, 'port'),
-	]);
-}
-
-/**
- * Configure the cache for model and datasource caches. This cache configuration
- * is used to store schema descriptions, and table listings in connections.
- */
-$_CACHE_URL = parseUrlFromEnv('CAKE_MODEL_CACHE_URL', env('CACHE_URL') ?: 'file:');
-if ($_CACHE_URL) {
-	Cache::config('_cake_model_', [
-		'engine' => ucfirst(Hash::get($_CACHE_URL, 'scheme')),
-		'prefix' => $prefix . 'cake_model_',
-		'path' => CACHE . 'models' . DS,
-		'serialize' => ($engine === 'File'),
-		'duration' => $duration,
-		'login' => Hash::get($_CACHE_URL, 'user'),
-		'password' => Hash::get($_CACHE_URL, 'pass'),
-		'server' => Hash::get($_CACHE_URL, 'host'),
-		'servers' => Hash::get($_CACHE_URL, 'host'),
-		'port' => Hash::get($_CACHE_URL, 'port'),
-	]);
-}
+	CakeLog::config('default', LogDsn::parse(env('LOG_URL')));
+	CakeLog::config('error', LogDsn::parse(env('LOG_ERROR_URL')));
