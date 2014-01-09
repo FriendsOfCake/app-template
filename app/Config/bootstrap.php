@@ -32,16 +32,19 @@ App::build(
 	App::RESET
 );
 
-// Include the Composer autoloader
-App::import('Vendor', array('file' => 'autoload'));
-
-// Remove and re-prepend CakePHP's autoloader as composer thinks it is the most important.
-// See https://github.com/composer/composer/commit/c80cb76b9b5082ecc3e5b53b1050f76bb27b127b
-spl_autoload_unregister(array('App', 'load'));
-spl_autoload_register(array('App', 'load'), true, true);
-
 // Setup a 'default' cache configuration for use in the application.
-Cache::config('default', ['engine' => 'File']);
+$_CACHE_URL = parseUrlFromEnv('CACHE_URL', 'file:');
+Cache::config('default', array(
+	'engine' => ucfirst(Hash::get($_CACHE_URL, 'scheme')),
+	'prefix' => 'app_default_',
+	'serialize' => ($engine === 'File'),
+	'duration' => '+999 days',
+	'login' => Hash::get($_CACHE_URL, 'user'),
+	'password' => Hash::get($_CACHE_URL, 'pass'),
+	'server' => Hash::get($_CACHE_URL, 'host'),
+	'servers' => Hash::get($_CACHE_URL, 'host'),
+	'port' => Hash::get($_CACHE_URL, 'port'),
+));
 
 /**
  * The settings below can be used to set additional paths to models, views and controllers.
@@ -139,10 +142,12 @@ App::uses('CakeLog', 'Log');
 CakeLog::config('debug', [
 	'engine' => 'FileLog',
 	'types' => ['notice', 'info', 'debug'],
+	'path' =>  env('LOG_PATH') :? LOGS,
 	'file' => 'debug',
 ]);
 CakeLog::config('error', [
 	'engine' => 'FileLog',
 	'types' => ['warning', 'error', 'critical', 'alert', 'emergency'],
+	'path' =>  env('LOG_PATH') :? LOGS,
 	'file' => 'error',
 ]);
