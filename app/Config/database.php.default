@@ -85,11 +85,11 @@ class DATABASE_CONFIG {
 
 		foreach ($parsed_urls as $connection => $parsed) {
 			if ($parsed) {
-                list($plugin, $dbo) = pluginSplit($parsed['scheme']);
-                $datasource = 'Database/' . ucfirst(strtolower($dbo));
-                if ($plugin) {
-                    $datasource = ucfirst(strtolower($plugin)) . '.' . $datasource;
-                }
+				list($plugin, $dbo) = pluginSplit($parsed['scheme']);
+				$datasource = 'Database/' . ucfirst(strtolower($dbo));
+				if ($plugin) {
+					$datasource = ucfirst(strtolower($plugin)) . '.' . $datasource;
+				}
 				$this->$connection = array(
 					'datasource' => $datasource,
 					'persistent' => false,
