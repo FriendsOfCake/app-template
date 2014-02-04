@@ -10,7 +10,8 @@
     "composer/installers" : "~1.0",
     "pear-pear.cakephp.org/CakePHP" : "2.4.*",
     "friendsofcake/crud" : "3.*",
-    "josegonzalez/dotenv": "0.1.*"
+    "josegonzalez/dotenv": "0.1.*",
+    "ad7six/dsn": "dev-master"
   },
   "require-dev": {
     "cakephp/debug_kit" : "2.2.*"
