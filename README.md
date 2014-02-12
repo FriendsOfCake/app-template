@@ -16,7 +16,7 @@ By default, the following has been enabled:
 
 - Composer Autoloading
 - Setting Timezone to UTC
-- Setting database connection encoding to utf8 in `database.php.defaut`
+- Setting database connection encoding to utf8
 
 You may change either of these at your leisure.
 
