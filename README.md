@@ -2,6 +2,10 @@
 
 An empty CakePHP project for use with composer
 
+## Requirements
+
+PHP 5.4 and above.
+
 ## Installation
 
 	composer -sdev create-project friendsofcake/app-template ProjectName
