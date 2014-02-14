@@ -1,6 +1,8 @@
+# It is recommended to integrate https://github.com/h5bp/server-configs also.
+# If you're using apache, preferably directly into your apache config files disabling .htaccess files =)
+
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
