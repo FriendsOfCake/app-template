@@ -28,7 +28,7 @@
   },
   "extra": {
     "heroku": {
-      "document-root": "app/webroot",
+      "document-root": "webroot",
       "index-document": "index.php"
     }
   }
