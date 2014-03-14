@@ -1,37 +1,40 @@
-# CakePHP Application Skeleton
+# App Template
 
-A skeleton for creating applications with [CakePHP](http://cakephp.org) 3.0.
-
-This is an unstable repository and should be treated as an alpha.
+An empty CakePHP project for use with CakePHP 3.x
 
 ## Installation
 
-### Install with composer
+	composer -sdev create-project friendsofcake/app-template ProjectName dev-cake3
 
-1. Download [Composer](http://getcomposer.org/doc/00-intro.md) or update `composer self-update`.
-2. Run `php composer.phar create-project -s dev cakephp/app [app_name]`.
+This will create a new project, with dependencies, based on this repository. Be sure to point
+the webserver at the `webroot` folder (a [production install][1]), ensure that [url rewriting][2]
+is configured correctly.
 
-If Composer is installed globally, run
-`composer create-project -s dev cakephp/app [app_name]`
+## Application Configuration
 
-### Manual installation
+This template supports - but does not require - configuration of the application via [environment variables](http://en.wikipedia.org/wiki/Environment_variable). This is not required for application configuration - and can be ignored - but is useful on Cloud Platforms and for those requiring extra security around sharing of application secrets and tokens.
 
-1. Clone this repository at desired location.
-2. Clone [CakePHP](https://github.com/cakephp/cakephp) into `vendor/cakephp/cakephp`.
-   ```
-   git clone git://github.com/cakephp/cakephp.git vendor/cakephp/cakephp
-   ```
-3. Checkout the `3.0` branch in the new CakePHP clone.
-   ```
-   cd vendor/cakephp/cakephp
-   git checkout -t -b 3.0 origin/3.0
-   ```
-4. Copy `App/Config/app.default.php` to `App/Config/app.php`
+To reduce complexity around using the use of this methodology locally, we have also included the [josegonzalez/php-dotenv](https://github.com/josegonzalez/php-dotenv) library to load environment variables within your `app/Config/core.php`. You can create a `app/Config/.env` file with your configuration and have it autoloaded by the `php-dotenv` project. A sample `app/Config/.env.default` has been included for your convenience.
 
-You should now be able to visit the path to where you installed the app and see
-the setup traffic lights.
+## Heroku Compatibility
 
-## Configuration
+This application template is compatible with the [CHH/heroku-buildpack-php](https://github.com/CHH/heroku-buildpack-php) project. To use, simply configure your buildpack:
 
-Read and edit `App/Config/app.php` and setup the 'Datasources' and any other
-configuration relevant for your application.
+    heroku config:set BUILDPACK_URL=https://github.com/CHH/heroku-buildpack-php
+    heroku config:set LOG_PATH=/app/vendor/php/var/log/
+    heroku config:set SECURITY_SALT=SOME_ALPHANUMERIC_SALT_HERE
+    heroku config:set SECURITY_CIPHER_SEED=SOME_NUMERIC_SEED_HERE
+
+## Note about dependencies
+
+FriendsOfCake encourages the use of composer and it's best not to mix composer with git submodules for
+dependency management. If you need to use submodules you might notice `/vendor` and `/Plugin` folders are
+ignored by git. Composer creates those directories when installing vendors and plugins.
+
+There a few ways to solve this:
+- edit the `.gitignore` file
+- use the `-f` param with `git add Plugin/SomePlugin -f`
+- use `app/Plugin` and `app/Vendor` for your submodules.
+
+ [1]: http://book.cakephp.org/2.0/en/installation.html#production
+ [2]: http://book.cakephp.org/2.0/en/installation/url-rewriting.html

@@ -1,4 +1,6 @@
-composer.lock
+# User specific & automatically generated files #
+#################################################
 /App/Config/.env
-/tmp/*
-/vendor/*
+/Plugin
+/tmp
+/vendor
