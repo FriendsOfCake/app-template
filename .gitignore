@@ -1,3 +1,4 @@
-/vendor/*
-/App/Config/app.php
+composer.lock
+/App/Config/.env
 /tmp/*
+/vendor/*

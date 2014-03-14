@@ -1,4 +1,33 @@
 <?php
+
+use AD7six\Dsn\Wrapper\CakePHP\V3\CacheDsn;
+use AD7six\Dsn\Wrapper\CakePHP\V3\DbDsn;
+use AD7six\Dsn\Wrapper\CakePHP\V3\EmailDsn;
+use AD7six\Dsn\Wrapper\CakePHP\V3\LogDsn;
+
+// Specify the APP_NAME environment variable to skip .env file loading
+// OR simply delete this block
+if (!env('APP_NAME')) {
+	try {
+		josegonzalez\Dotenv\Loader::load([
+			'filepath' => __DIR__ . DS . '.env',
+			'toServer' => false,
+			'skipExisting' => ['toServer'],
+			'raiseExceptions' => false
+		]);
+	} catch (InvalidArgumentException $e) {
+		// If there's a problem loading the .env file - load .env.default
+		// That means the code can assume appropriate env config always exists
+		// Don't trap this incase there's some other fundamental error
+		josegonzalez\Dotenv\Loader::load([
+			'filepath' => __DIR__ . DS . '.env.default',
+			'toServer' => false,
+			'skipExisting' => ['toServer'],
+			'raiseExceptions' => false
+		]);
+	}
+}
+
 $config = [
 /**
  * Debug Level:
@@ -11,7 +40,7 @@ $config = [
  * 2: As in 1, but also with full debug messages and SQL output.
  *
  */
-	'debug' => 2,
+	'debug' => (int)env('DEBUG'),
 
 /**
  * Configure basic information about the application.
@@ -62,7 +91,7 @@ $config = [
  *   You should treat it as extremely sensitive data.
  */
 	'Security' => [
-		'salt' => '__SALT__',
+		'salt' => env('SECURITY_SALT')
 	],
 
 /**
@@ -90,33 +119,19 @@ $config = [
  * Configure the cache adapters.
  */
 	'Cache' => [
-		'default' => [
-			'className' => 'File',
-		],
+		'default' => CacheDsn::parse(env('CACHE_URL')),
 
 	/**
 	 * Configure the cache used for general framework caching.  Path information,
 	 * object listings, and translation cache files are stored with this configuration.
 	 */
-		'_cake_core_' => [
-			'className' => 'File',
-			'prefix' => 'myapp_cake_core_',
-			'path' => CACHE . 'persistent/',
-			'serialize' => true,
-			'duration' => '+10 seconds',
-		],
+		'_cake_core_' => CacheDsn::parse(env('CACHE_CAKE_CORE_URL')),
 
 	/**
 	 * Configure the cache for model and datasource caches.  This cache configuration
 	 * is used to store schema descriptions, and table listings in connections.
 	 */
-		'_cake_model_' => [
-			'className' => 'File',
-			'prefix' => 'my_app_cake_model_',
-			'path' => CACHE . 'models/',
-			'serialize' => true,
-			'duration' => '+10 seconds',
-		],
+		'_cake_model_' => CacheDsn::parse(env('CACHE_CAKE_MODEL_URL'))
 	],
 
 /**
@@ -181,17 +196,7 @@ $config = [
  * See Cake\Network\Email\Email for more information.
  */
 	'EmailTransport' => [
-		'default' => [
-			'className' => 'Mail',
-			// The following keys are used in SMTP transports
-			'host' => 'localhost',
-			'port' => 25,
-			'timeout' => 30,
-			'username' => 'user',
-			'password' => 'secret',
-			'client' => null,
-			'tls' => null,
-		],
+		'default' => EmailDsn::parse(env('EMAIL_URL'))
 	],
 
 	'Email' => [
@@ -208,48 +213,20 @@ $config = [
  * to your application's datastores.
  */
 	'Datasources' => [
-		'default' => [
-			'className' => 'Cake\Database\Connection',
-			'driver' => 'Cake\Database\Driver\Mysql',
-			'persistent' => false,
-			'host' => 'localhost',
-			'login' => 'my_app',
-			'password' => 'secret',
-			'database' => 'my_app',
-			'prefix' => false,
-			'encoding' => 'utf8',
-		],
+		'default' => DbDsn::parse(env('DATABASE_URL')),
 
 		/**
 		 * The test connection is used during the test suite.
 		 */
-		'test' => [
-			'className' => 'Cake\Database\Connection',
-			'driver' => 'Cake\Database\Driver\Mysql',
-			'persistent' => false,
-			'host' => 'localhost',
-			'login' => 'my_app',
-			'password' => 'secret',
-			'database' => 'test_myapp',
-			'prefix' => false,
-			'encoding' => 'utf8',
-		],
+		'test' => DbDsn::parse(env('DATABASE_TEST_URL'))
 	],
 
 /**
  * Configures logging options
  */
 	'Log' => [
-		'debug' => [
-			'className' => 'Cake\Log\Engine\FileLog',
-			'file' => 'debug',
-			'levels' => ['notice', 'info', 'debug'],
-		],
-		'error' => [
-			'className' => 'Cake\Log\Engine\FileLog',
-			'file' => 'error',
-			'levels' => ['warning', 'error', 'critical', 'alert', 'emergency'],
-		],
+		'debug' => LogDsn::parse(env('LOG_URL')),
+		'error' => LogDsn::parse(env('LOG_ERROR_URL'))
 	],
 
 /**

@@ -1,12 +1,14 @@
 {
-    "name": "cakephp/app",
-    "description": "CakePHP skeleton app",
+    "name": "friendsofcake/app-template",
+    "description": "An empty 12 factor CakePHP 3.x application",
     "homepage": "http://cakephp.org",
     "type": "project",
     "license": "MIT",
     "require": {
+        "php": ">=5.4",
         "cakephp/cakephp": "3.0.*-dev",
-        "php": ">=5.4"
+		"josegonzalez/dotenv": "0.1.*",
+		"ad7six/dsn": "dev-cake3"
     },
     "require-dev": {
         "d11wtq/boris": "1.0.*"
