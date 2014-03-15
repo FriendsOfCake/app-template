@@ -8,7 +8,7 @@
         "php": ">=5.4",
         "cakephp/cakephp": "3.0.*-dev",
         "josegonzalez/dotenv": "0.1.*",
-        "ad7six/dsn": "dev-cake3"
+        "ad7six/dsn": "0.2.*"
     },
     "require-dev": {
         "d11wtq/boris": "1.0.*"
