@@ -17,8 +17,9 @@
  * @license       http://www.opensource.org/licenses/mit-license.php MIT License
  */
 
-if (!Configure::read('debug')):
-	throw new NotFoundException();
+if (!Configure::read('debug')): ?><h2>Rapid Application Development</h2><?php
+	CakeLog::write('warning', 'Replace your app/View/Pages/home.ctp');
+	return;
 endif;
 App::uses('Debugger', 'Utility');
 ?>
@@ -113,7 +114,7 @@ if (isset($filePresent)):
 	<?php
 		if ($connected && $connected->isConnected()):
 			echo '<span class="notice success">';
-	 			echo __d('cake_dev', 'Cake is able to connect to the database.');
+				echo __d('cake_dev', 'Cake is able to connect to the database.');
 			echo '</span>';
 		else:
 			echo '<span class="notice">';
