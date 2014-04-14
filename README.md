@@ -11,7 +11,7 @@ PHP 5.4 and above.
 	composer -sdev create-project friendsofcake/app-template ProjectName
 
 This will create a new project, with dependencies, based on this repository. Be sure to point
-the webserver at the `app/webroot` folder (a [production install][1]), ensure that [url rewriting][2]
+the webserver at the `webroot` folder and ensure that [URL rewriting][1]
 is configured correctly.
 
 ## Non-default Configuration
@@ -50,5 +50,4 @@ There a few ways to solve this:
 - use the `-f` param with `git add Plugin/SomePlugin -f`
 - use `app/Plugin` and `app/Vendor` for your submodules.
 
- [1]: http://book.cakephp.org/2.0/en/installation.html#production
- [2]: http://book.cakephp.org/2.0/en/installation/url-rewriting.html
+ [1]: http://book.cakephp.org/2.0/en/installation/url-rewriting.html
