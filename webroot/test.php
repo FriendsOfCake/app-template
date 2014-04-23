@@ -67,7 +67,7 @@ define('TMP', ROOT . DS . 'tmp' . DS);
  * /lib/Cake/Console/Templates/skel/webroot/test.php
  */
 //define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
-define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'vendor' . DS . 'pear-pear.cakephp.org' . DS . 'CakePHP');
+define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'vendor' . DS . 'cakephp' . DS . 'cakephp' . DS . 'lib');
 
 /**
  * Editing below this line should not be necessary.
