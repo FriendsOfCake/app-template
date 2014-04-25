@@ -1,7 +1,7 @@
 <?php
 
-use AD7six\Dsn\Wrapper\CakePHP\CacheDsn;
-use AD7six\Dsn\Wrapper\CakePHP\LogDsn;
+use AD7six\Dsn\Wrapper\CakePHP\V2\CacheDsn;
+use AD7six\Dsn\Wrapper\CakePHP\V2\LogDsn;
 
 /**
  * This is core configuration file.

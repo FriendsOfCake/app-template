@@ -1,6 +1,6 @@
 <?php
 
-use AD7six\Dsn\Wrapper\CakePHP\DbDsn;
+use AD7six\Dsn\Wrapper\CakePHP\V2\DbDsn;
 
 class DATABASE_CONFIG {
 
