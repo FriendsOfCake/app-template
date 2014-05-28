@@ -16,8 +16,7 @@
   "require-dev": {
     "cakephp/debug_kit" : "2.2.*"
   },
-  "minimum-stability": "dev"
-  ],
+  "minimum-stability": "dev",
   "config": {
     "preferred-install": "source"
   },
