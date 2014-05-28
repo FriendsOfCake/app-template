@@ -51,3 +51,12 @@ There a few ways to solve this:
 - use `app/Plugin` and `app/Vendor` for your submodules.
 
  [1]: http://book.cakephp.org/2.0/en/installation/url-rewriting.html
+
+## Included packages
+The application template comes with some dependancies already included in the composer file. These are designed to help you get up and running quickly.
+
+* [friendsofcake/Crud](https://github.com/friendsofcake/crud)
+* [josegonzalez/dotenv](https://github.com/josegonzalez/php-dotenv)
+* [ad7six/dsn](https://github.com/AD7six/php-dsn)
+
+To find out how to make the most of these packages, please read their respective readme files.
