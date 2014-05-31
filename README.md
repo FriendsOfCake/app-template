@@ -14,7 +14,7 @@ This will create a new project, with dependencies, based on this repository. Be 
 the webserver at the `webroot` folder and ensure that [URL rewriting][1]
 is configured correctly.
 
-## Non-default Configuration
+## Sane-default Configuration
 
 By default, the following has been enabled:
 
@@ -26,10 +26,41 @@ You may change either of these at your leisure.
 
 ## Application Configuration
 
-This template supports - but does not require - configuration of the application via [environment variables](http://en.wikipedia.org/wiki/Environment_variable). This is not required for application configuration - and can be ignored - but is useful on Cloud Platforms and for those requiring extra security around sharing of application secrets and tokens.
+This template is setup to configure the application via [environment variables](http://en.wikipedia.org/wiki/Environment_variable) and [data source names](http://en.wikipedia.org/wiki/Data_source_name) (DSN).
 
-To reduce complexity around using the use of this methodology locally, we have also included the [josegonzalez/php-dotenv](https://github.com/josegonzalez/php-dotenv) library to load environment variables within your `app/Config/core.php`. You can create a `app/Config/.env` file with your configuration and have it autoloaded by the `php-dotenv` project. A sample `app/Config/.env.default` has been included for your convenience.
+## Env variables?
 
+Defining configuration settings via environment variables allows clear separation between the code, and the config it is running. To remove any complexity, this repository includes [josegonzalez/php-dotenv](https://github.com/josegonzalez/php-dotenv), which automatically configures the environment if it's not already defined.
+
+## Err DSN?
+
+A DSN is a string which defines how to connect to a service. Since it's a string, it's portable, not language or implementation dependent and anything capable of parsing it can know how to connect to the service it points at.
+
+## OK but why use Env variables and DSNs?
+
+Using environment variables makes it very easy to separate install-specific config settings from the code itself; and possible to change the application config _without_ modifying the source files. 
+There is only [one file](https://github.com/FriendsOfCake/app-template/blob/master/app/Config/.env.default) containing install-specific settings in the template and  that file is only used at all [if the environment isn't already configured](https://github.com/FriendsOfCake/app-template/blob/master/app/Config/core.php#L38-L57). 
+
+The intention is that in a production system the _environment_ is configured not an application - and the application just reads that information.
+
+## Ok I'm sold, how do I use this?
+
+In a development scenario, copy the file `Config/.env.default` to `Config/.env` and edit it.
+
+In a production scenario - configure the environment however you wish (via webserver config for example) and remove the use of `php-dotenv`.
+
+In neither case is it necessary/desirable to modify any php files to configure the application temporarily or permanetly.
+
+## Yeah.. that's not for me.
+
+If you don't want to use Env variables and DSNs - change it =). 
+
+ * Use a standard `database.php` file 
+ * Use a standard `email.php` file 
+ * Define `debug` to an integer not an env variable
+ * Remove the php-dotenv loading logic
+ * It's also recommended to remove `database.php` (and `core.php` and `email.php`) from the repository as they need to be modified on each install
+  
 ## Heroku Compatibility
 
 This application template is compatible with the [CHH/heroku-buildpack-php](https://github.com/CHH/heroku-buildpack-php) project. To use, simply configure your buildpack:
