@@ -1,6 +1,6 @@
 {
   "name": "friendsofcake/app-template",
-  "description": "An empty CakePHP 2.4 application",
+  "description": "An empty CakePHP 2.5 application",
   "type": "project",
   "keywords" : [],
   "homepage" : "http://cakephp.org",
