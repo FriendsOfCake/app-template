@@ -18,7 +18,7 @@
   },
   "minimum-stability": "dev",
   "config": {
-    "preferred-install": "source"
+    "preferred-install": "dist"
   },
   "extra": {
     "heroku": {
