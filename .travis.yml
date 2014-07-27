@@ -12,7 +12,7 @@ before_script:
   - composer install
   - mysql -e 'CREATE DATABASE test_database_name;'
   - export DATABASE_TEST_URL="mysql://travis@localhost/test_database_name?encoding=utf8"
-  - composer global require 'phpunit/phpunit=3.7.33'
+  - cd && composer global require 'phpunit/phpunit=3.7.33' && cd -
   - ln -s ~/.composer/vendor/phpunit/phpunit/PHPUnit ./vendor/PHPUnit
 
 script:
