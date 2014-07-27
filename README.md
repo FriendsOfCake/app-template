@@ -1,4 +1,4 @@
-# App Template
+# App Template  [![Build Status](https://travis-ci.org/FriendsOfCake/app-template.svg)](https://travis-ci.org/FriendsOfCake/app-template)
 
 An empty CakePHP project for use with composer
 
