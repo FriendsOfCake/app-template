@@ -29,6 +29,7 @@ if (function_exists('ini_set')) {
 	ini_set('include_path', $root . $ds . 'cakephp' . $ds . 'lib' . PATH_SEPARATOR . ini_get('include_path'));
 }
 
+define('TMP', dirname(dirname(dirname(__FILE__))) . $ds . 'tmp' . $ds);
 define('WWW_ROOT', dirname(dirname(dirname(__FILE__))) . $ds . 'webroot' . $ds);
 
 if (!include $dispatcher) {
