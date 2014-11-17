@@ -288,6 +288,6 @@ if (!env('APP_NAME')) {
 /**
  * Configure logs from environment variables
  */
- 	App::uses('CakeLog', 'Log');
+	App::uses('CakeLog', 'Log');
 	CakeLog::config('default', LogDsn::parse(env('LOG_URL')));
 	CakeLog::config('error', LogDsn::parse(env('LOG_ERROR_URL')));
