@@ -81,7 +81,7 @@ CakePlugin::load('Crud');
 if (php_sapi_name() !== 'cli' && Configure::read('debug') && in_array('DebugKit', App::objects('plugin'))) {
 	CakePlugin::load('DebugKit');
 	App::uses('CakeEventManager', 'Event');
-	CakeEventManager::instance()->attach(function($event) {
+	CakeEventManager::instance()->attach(function ($event) {
 		$controller = $event->subject();
 
 		if (!isset($controller->Crud)) {
