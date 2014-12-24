@@ -49,7 +49,7 @@ In a development scenario, copy the file `Config/.env.default` to `Config/.env` 
 
 In a production scenario - configure the environment however you wish (via webserver config for example) and remove the use of `php-dotenv`.
 
-In neither case is it necessary/desirable to modify any php files to configure the application temporarily or permanetly.
+In neither case is it necessary/desirable to modify any php files to configure the application temporarily or permanently.
 
 #### Yeah.. that's not for me.
 
@@ -84,7 +84,7 @@ There a few ways to solve this:
  [1]: http://book.cakephp.org/2.0/en/installation/url-rewriting.html
 
 ## Included packages
-The application template comes with some dependancies already included in the composer file. These are designed to help you get up and running quickly.
+The application template comes with some dependencies already included in the composer file. These are designed to help you get up and running quickly.
 
 * [friendsofcake/Crud](https://github.com/friendsofcake/crud)
 * [josegonzalez/dotenv](https://github.com/josegonzalez/php-dotenv)
