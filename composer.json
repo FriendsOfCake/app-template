@@ -19,5 +19,11 @@
   "minimum-stability": "dev",
   "config": {
     "preferred-install": "dist"
+  },
+  extra: {
+    heroku: {
+      document-root: "webroot",
+      index-document: "index.php"
+    }
   }
 }
