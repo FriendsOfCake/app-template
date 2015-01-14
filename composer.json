@@ -20,10 +20,10 @@
   "config": {
     "preferred-install": "dist"
   },
-  extra: {
-    heroku: {
-      document-root: "webroot",
-      index-document: "index.php"
+  "extra": {
+    "heroku": {
+      "document-root": "webroot",
+      "index-document": "index.php"
     }
   }
 }
