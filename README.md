@@ -63,12 +63,22 @@ If you don't want to use Env variables and DSNs - change it =).
 
 ## Heroku Compatibility
 
-This application template is compatible with the [CHH/heroku-buildpack-php](https://github.com/CHH/heroku-buildpack-php) project. To use, simply configure your buildpack:
+This application template is compatible with the [official Heroku PHP buildpack](https://github.com/heroku/heroku-buildpack-php). To use, simply configure your buildpack:
 
-    heroku config:set BUILDPACK_URL=https://github.com/CHH/heroku-buildpack-php
+    heroku config:set BUILDPACK_URL=https://github.com/heroku/heroku-buildpack-php
     heroku config:set LOG_PATH=/app/vendor/php/var/log/
     heroku config:set SECURITY_SALT=SOME_ALPHANUMERIC_SALT_HERE
     heroku config:set SECURITY_CIPHER_SEED=SOME_NUMERIC_SEED_HERE
+
+To setup a production MySQL database setup a ClearDB MySQL add-on in Heroku.
+
+    heroku addons:add cleardb
+
+By default its config variable will be set under the key CLEARDB_DATABASE_URL. For our app-template we want this configured at DATABASE_URL.
+
+    old_db_url=`heroku config:get CLEARDB_DATABASE_URL`
+    heroku config:set DATABASE_URL="$old_db_url"
+    heroku config:unset CLEARDB_DATABASE_URL
 
 ## Note about dependencies
 
