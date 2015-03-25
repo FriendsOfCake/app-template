@@ -6,7 +6,7 @@ php:
 
 before_script:
   - sh -c "pear channel-discover pear.cakephp.org"
-  - sh -c "pear install PHP_CodeSniffer"
+  - sh -c "pear install PHP_CodeSniffer-1.4.8"
   - sh -c "pear install --alldeps cakephp/CakePHP_CodeSniffer"
   - phpenv rehash
 
