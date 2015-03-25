@@ -5,9 +5,7 @@ php:
   - 5.5
 
 before_script:
-  - sh -c "pear channel-discover pear.cakephp.org"
   - sh -c "composer require 'cakephp/cakephp-codesniffer:dev-master'"
-  - sh -c "pear install --alldeps cakephp/CakePHP_CodeSniffer"
   - phpenv rehash
 
 script:
