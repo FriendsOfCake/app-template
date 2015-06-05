@@ -43,7 +43,7 @@ if (!env('APP_NAME')) {
 		'filepath' => [
 			__DIR__ . DS . '.env',
 			__DIR__ . DS . '.env.default',
-		]
+		],
 		'toServer' => false,
 		'skipExisting' => ['toServer'],
 		'raiseExceptions' => true
