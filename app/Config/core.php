@@ -36,24 +36,18 @@ spl_autoload_register(['App', 'load'], true, true);
 
 // Specify the APP_NAME environment variable to skip .env file loading
 if (!env('APP_NAME')) {
-	try {
-		josegonzalez\Dotenv\Loader::load([
-			'filepath' => __DIR__ . DS . '.env',
-			'toServer' => false,
-			'skipExisting' => ['toServer'],
-			'raiseExceptions' => false
-		]);
-	} catch (InvalidArgumentException $e) {
-		// If there's a problem loading the .env file - load .env.default
-		// That means the code can assume appropriate env config always exists
-		// Don't trap this incase there's some other fundamental error
-		josegonzalez\Dotenv\Loader::load([
-			'filepath' => __DIR__ . DS . '.env.default',
-			'toServer' => false,
-			'skipExisting' => ['toServer'],
-			'raiseExceptions' => false
-		]);
-	}
+	// If there's a problem loading the .env file - load .env.default
+	// That means the code can assume appropriate env config always exists
+	// Don't trap this incase there's some other fundamental error
+	josegonzalez\Dotenv\Loader::load([
+		'filepath' => [
+			__DIR__ . DS . '.env',
+			__DIR__ . DS . '.env.default',
+		],
+		'toServer' => false,
+		'skipExisting' => ['toServer'],
+		'raiseExceptions' => true
+	]);
 }
 
 /**
