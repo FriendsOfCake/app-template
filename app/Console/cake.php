@@ -35,6 +35,6 @@ define('WWW_ROOT', dirname(dirname(dirname(__FILE__))) . $ds . 'webroot' . $ds);
 if (!include $dispatcher) {
 	trigger_error('Could not locate CakePHP core files.', E_USER_ERROR);
 }
-unset($paths, $path, $dispatcher, $root, $ds);
+unset($dispatcher, $root, $ds);
 
 return ShellDispatcher::run($argv);
