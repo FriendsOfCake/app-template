@@ -10,7 +10,7 @@
     "composer/installers" : "~1.0",
     "cakephp/cakephp" : "2.5.*",
     "friendsofcake/crud" : "3.*",
-    "josegonzalez/dotenv": "1.0.2",
+    "josegonzalez/dotenv": "1.*",
     "ad7six/dsn": "0.3.*"
   },
   "require-dev": {
