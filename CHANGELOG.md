@@ -1,16 +1,27 @@
 # Change Log
+
 All notable changes to this project will be documented in this file.
 This project adheres to [Semantic Versioning](http://semver.org/).
 
-## [Unreleased](https://github.com/FriendsOfCake/app-template/compare/1.6.0...master)
+## [Unreleased](https://github.com/FriendsOfCake/app-template/compare/1.7.0...master)
 
 ### Added
-
-- This change log
 
 ### Changed
 
 ### Fixed
+
+## [1.7.0](https://github.com/FriendsOfCake/app-template/releases/tag/1.7.0) - 2015-12-30
+
+### Added
+
+- This change log
+- Added a note on using redis on heroku for caching
+
+### Changed
+
+- Allow installing any version of CakePHP
+- Allow installing any version of php-dotenv
 
 ## [1.6.0](https://github.com/FriendsOfCake/app-template/releases/tag/1.6.0) - 2015-08-15
 
