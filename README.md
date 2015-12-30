@@ -72,7 +72,7 @@ This application template is compatible with the [official Heroku PHP buildpack]
 
 To setup a production MySQL database setup a ClearDB MySQL add-on in Heroku.
 
-    heroku addons:add cleardb
+    heroku addons:create cleardb
 
 By default its config variable will be set under the key CLEARDB_DATABASE_URL. For our app-template we want this configured at DATABASE_URL.
 
