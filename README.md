@@ -80,6 +80,18 @@ By default its config variable will be set under the key CLEARDB_DATABASE_URL. F
     heroku config:set DATABASE_URL="$old_db_url"
     heroku config:unset CLEARDB_DATABASE_URL
 
+We recommend using Redis for caching on Heroku. If doing so, remember to add the following to the `require` key in your `composer.json`:
+
+```javascript
+"ext-redis" : "*"
+```
+
+You can use the RedisCloud add-on in Heroku for a redis datastore:
+
+```shell
+heroku addons:create rediscloud
+```
+
 ## Note about dependencies
 
 FriendsOfCake encourages the use of composer and it's best not to mix composer with git submodules for
