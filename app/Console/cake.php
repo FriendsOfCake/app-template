@@ -37,4 +37,10 @@ if (!include $dispatcher) {
 }
 unset($dispatcher, $root, $ds);
 
+// Make passing "--working ." to the shell obsolete, when invoking Console/cake.php directly
+if (!in_array('--working', $argv)) {
+	$argv[] = '--working';
+	$argv[] = dirname(dirname(__FILE__));
+}
+
 return ShellDispatcher::run($argv);
